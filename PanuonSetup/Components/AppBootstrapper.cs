@@ -90,8 +90,10 @@ namespace PanuonSetup
             var exports = _container.GetExportedValues<object>(contract);
 
             if (exports.Any())
+            {
                 return exports.First();
-
+            }
+            
             throw new Exception($"找不到实例 {contract}。");
         }
 
@@ -103,12 +105,6 @@ namespace PanuonSetup
         protected override IEnumerable<Assembly> SelectAssemblies()
         {
             var assemblies = new List<Assembly>() { Assembly.GetExecutingAssembly() };
-            //加载插件dll
-            foreach (var filePath in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "UninerStudio.Plugins.*.dll"))
-            {
-                var assembly = Assembly.LoadFrom(filePath);
-                assemblies.Add(assembly);
-            }
             return assemblies;
         }
 
